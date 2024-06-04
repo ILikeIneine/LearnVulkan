@@ -12,11 +12,11 @@ add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCE} ${${PROJECT_NAME}_HEADE
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/third_party)
 
-target_link_libraries(${PROJECT_NAME} glfw glm vulkan)
+target_link_libraries(${PROJECT_NAME} glfw glm ${Vulkan_LIBRARY})
 
 set_target_properties(
              ${PROJECT_NAME}
              PROPERTIES
              WIN32_EXECUTABLE 
-             TRUE
+             ${HIDE_CMD_WINDOW} 
 )
