@@ -127,6 +127,7 @@ private:
         createLogicalDevice();
         createSwapChain();
         createImageViews();
+        createRenderPass();
         createGraphicsPipeline();
     }
 
@@ -246,6 +247,7 @@ private:
         vkDestroySwapchainKHR(device_, swapChain_, nullptr);
         vkDestroySurfaceKHR(instance_, surface_, nullptr);
         vkDestroyPipelineLayout(device_, pipelineLayout_, nullptr);
+        vkDestroyRenderPass(device_, renderPass_, nullptr);
 
         vkDestroyDevice(device_, nullptr);
         vkDestroyInstance(instance_, nullptr);
@@ -723,6 +725,43 @@ private:
         vkDestroyShaderModule(device_, vertShaderModule, nullptr);
     }
 
+    void createRenderPass()
+    {
+        VkAttachmentDescription colorAttachment {
+            .format = swapChainImageFormat_,
+            .samples = VK_SAMPLE_COUNT_1_BIT,
+            .loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR,
+            .storeOp = VK_ATTACHMENT_STORE_OP_STORE,
+            .stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE,
+            .stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE,
+            .initialLayout = VK_IMAGE_LAYOUT_UNDEFINED,
+            .finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+        };
+
+        VkAttachmentReference colorAttachmentRef {
+            .attachment = 0,
+            .layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+        };
+
+        VkSubpassDescription subpass {
+            .pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS,
+            .colorAttachmentCount = 1,
+            .pColorAttachments = &colorAttachmentRef,
+        };
+
+        VkRenderPassCreateInfo renderPassInfo{
+            .sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO,
+            .attachmentCount = 1,
+            .pAttachments = &colorAttachment,
+            .subpassCount = 1,
+            .pSubpasses = &subpass,
+        };
+
+        if (vkCreateRenderPass(device_, &renderPassInfo, nullptr, &renderPass_) != VK_SUCCESS) {
+            throw std::runtime_error("failed to create render pass!");
+        }
+    }
+
     auto createShaderModule(const std::vector<char>& code) const -> VkShaderModule
     {
         VkShaderModuleCreateInfo createInfo{
@@ -798,7 +837,10 @@ private:
     VkSwapchainKHR swapChain_{};
     VkFormat swapChainImageFormat_{};
     VkExtent2D swapChainExtent_{};
+
+    VkRenderPass renderPass_{};
     VkPipelineLayout pipelineLayout_{};
+
     std::vector<VkImage> swapChainImages_{};
     std::vector<VkImageView> swapChainImageViews_{};
 };
