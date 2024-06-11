@@ -1,0 +1,5 @@
+#pragma once
+
+#cmakedefine PROJECT_HOME R"(@PROJECT_HOME@)"
+
+#cmakedefine GEN_SHADER_HOME R"(@GEN_SHADER_HOME@)"

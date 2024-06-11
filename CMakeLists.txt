@@ -16,16 +16,8 @@ endif()
 
 include_directories(${CMAKE_SOURCE_DIR}/third_party/vulkan/include)
 
-IF (NOT Vulkan_FOUND)
-	find_library(Vulkan_LIBRARY NAMES vulkan-1 vulkan PATHS ${CMAKE_SOURCE_DIR}/libs/VulkanRT)
-	IF (Vulkan_LIBRARY)
-		set(Vulkan_FOUND ON)
-		MESSAGE("-- Using bundled Vulkan library version")
-	ELSE()
-		message(WARNING "Could not find Vulkan library. Please ensure it is installed.")
-	ENDIF()
-ENDIF()
-
+# scoop on msvc
+find_package(Vulkan REQUIRED)
 
 # sudirectories
 add_subdirectory(third_party/glfw)
