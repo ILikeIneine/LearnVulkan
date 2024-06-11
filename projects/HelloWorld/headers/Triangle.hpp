@@ -5,13 +5,14 @@
 #include <optional>
 #include <set>
 #include <fstream>
+#include <format>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-#include <format>
-#include <vulkan/vulkan_raii.hpp>
+#include <glm/glm.hpp>
 
 #include "config.h"
+#include "Vertex.hpp"
 
 #ifdef NDEBUG
 constexpr bool enableValidationLayers = false;
