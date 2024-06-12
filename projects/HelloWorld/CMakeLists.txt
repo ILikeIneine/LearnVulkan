@@ -27,7 +27,9 @@ target_sources(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_SHADERS})
 target_include_directories(${PROJECT_NAME} PRIVATE 
                             ${CMAKE_CURRENT_SOURCE_DIR}/headers
                             ${CMAKE_SOURCE_DIR}/third_party
-                            ${CMAKE_CURRENT_BINARY_DIR}/gen)
+                            ${CMAKE_CURRENT_BINARY_DIR}/gen
+                            ${Vulkan_INCLUDE_DIRS}
+)
 
 target_link_libraries(${PROJECT_NAME} glfw glm ${Vulkan_LIBRARY})
 
