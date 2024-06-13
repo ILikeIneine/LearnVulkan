@@ -13,6 +13,7 @@ file(GLOB_RECURSE ${PROJECT_NAME}_SHADERS
 
 # generate headers
 set(PROJECT_HOME ${CMAKE_CURRENT_SOURCE_DIR})
+set(RESOURCES_HOME ${CMAKE_SOURCE_DIR}/resource)
 configure_file(config.h.in ${CMAKE_CURRENT_BINARY_DIR}/gen/config.h @ONLY)
 
 # generate shaders

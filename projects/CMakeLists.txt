@@ -1,4 +1,4 @@
-set(GEN_SHADER_HOME ${CMAKE_CURRENT_BINARY_DIR}/gen/shaders/)
+set(GEN_SHADER_HOME ${CMAKE_CURRENT_BINARY_DIR}/gen/shaders)
 
 function(add_shaders TARGET_NAME)
     set(SHADER_SOURCE_FILES ${ARGN})
