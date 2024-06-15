@@ -1009,7 +1009,7 @@ private:
             .maxAnisotropy = properties.limits.maxSamplerAnisotropy,
             .compareEnable = VK_FALSE,
             .compareOp = VK_COMPARE_OP_ALWAYS,
-            .minLod = static_cast<float>(mipLevels_ / 2),
+            .minLod = 0,
             .maxLod = static_cast<float>(mipLevels_),
             .borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK,
             .unnormalizedCoordinates = VK_FALSE,
@@ -1805,9 +1805,9 @@ private:
         for (std::size_t i=0; i < swapChainImageViews_.size(); ++i)
         {
             std::array attachments = {
-                swapChainImageViews_[i],
-                depthImageView_,
                 colorImageView_,
+                depthImageView_,
+                swapChainImageViews_[i],
             };
 
             VkFramebufferCreateInfo frameBufferInfo{

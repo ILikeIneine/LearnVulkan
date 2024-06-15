@@ -4,9 +4,6 @@ function(add_shaders TARGET_NAME)
     set(SHADER_SOURCE_FILES ${ARGN})
 
     list(LENGTH SHADER_SOURCE_FILES FILE_COUNT)
-    if (FILE_COUNT EQUAL 0)
-        message(FATAL_ERROR "Cannot create a shaders target without any source files")
-    endif()
 
     set(SHADER_COMMANDS)
     set(SHADER_PRODUCTS)
@@ -31,3 +28,4 @@ function(add_shaders TARGET_NAME)
 endfunction()
 
 add_subdirectory(HelloWorld)
+add_subdirectory(VkEngine)
